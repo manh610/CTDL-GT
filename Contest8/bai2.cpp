@@ -3,7 +3,7 @@ using namespace std;
 int main(){
 	long long t;
 	cin >> t;
-	stack <int> p;
+	queue <int> p;
 	string s;
 	int x;
 	while(t--){
@@ -20,7 +20,7 @@ int main(){
 		else{
 			int k = p.size();
 			if(k>0){
-				cout<<p.top()<<endl;
+				cout<<p.front()<<endl;
 			}
 			else
 				cout<<"NONE"<<endl;
