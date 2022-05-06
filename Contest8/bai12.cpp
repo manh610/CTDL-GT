@@ -7,7 +7,7 @@ const int mod = 1e9+7;
 
 int n;
 string s1,s2;
-vector<string> str;
+unordered_set<string> str;
 
 void Input() {
     cin >> n;
@@ -16,13 +16,35 @@ void Input() {
     for ( int i = 0; i < n; i++) {
         string s;
         cin >> s;
-        str.push_back(s);
+        str.insert(s);
     }
 }
 
 void Solve() {
-    cout << s1 << " " << s2;
-    for ( int i = 0; i < str.size(); i++) cout << str[i] << " ";    
+    queue<pair<string,int>> q;
+    q.push({s1,0});
+    while ( !q.empty() ) {
+        pair<string,int> x = q.front();
+        q.pop();
+        if ( x.first==s2 ) {
+            cout << x.second+1 << endl;
+            return;
+        }
+        for ( int i = 0; i < x.first.length(); i++) {
+            for ( int j='A'; j <= 'Z'; j++) {
+                string tmp = x.first;
+                x.first[i] = j;
+                if ( str.find(x.first)!=str.end() ) {
+                    pair<string,int> y;
+                    y.first = x.first;
+                    y.second = x.second+1;
+                    q.push(y);
+                    str.erase(y.first);
+                }
+                x.first = tmp;
+            }
+        }
+    }
 }
 
 int main()

@@ -44,7 +44,3 @@ main()
 }
 
 // code by Manh.
-
-
-
-

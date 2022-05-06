@@ -12,10 +12,10 @@ bool sortbysec(const pair<int,int> &a, const pair<int,int> &b) { return (a.secon
 void Input() {
 	cin >> n;
 	a.resize(n);
-	for ( int i = 0; i < n; i++) 
+	for ( int i = 0; i < n; i++) {
 		cin >> a[i].first;
-	for ( int i = 0; i < n; i++) 
 		cin >> a[i].second;
+	}
 }
 
 void Solve() {

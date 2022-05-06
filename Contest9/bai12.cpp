@@ -5,22 +5,35 @@ using namespace std;
 typedef long long int ll;
 const int mod = 1e9+7;
 
-int V,E,s,t;
+char s,t;
 vector<int> ke[1005];
 bool check[1005];
 int truoc[1005];
+int a[][10] = {
+				{0,0,0,0,0,0,0,0,0,0},
+				{0,0,1,0,0,0,0,0,0,0},
+				{0,1,0,1,0,0,1,0,0,0},
+				{0,0,1,0,1,0,0,0,0,0},
+				{0,0,0,1,0,1,0,0,1,0},
+				{0,0,0,0,1,0,0,0,0,0},
+				{0,0,1,0,0,0,0,1,0,0},
+				{0,0,0,0,0,0,1,0,1,0},
+				{0,0,0,0,1,0,0,1,0,1},
+				{0,0,0,0,0,0,0,0,1,0}
+			};
 
 void Input() {
-    cin >> V >> E >> s >> t;
-    for ( int i = 1; i <= V; i++) {
+    cin >> s >> t;
+    for ( int i = 1; i <= 9; i++) {
         ke[i].clear();
     }
-    for ( int i = 1; i <= E; i++) {
-        int a,b;
-        cin >> a >> b;
-        ke[a].push_back(b);
-        ke[b].push_back(a);
-    }
+    for ( int i = 1; i <= 9; i++) {
+		for ( int j = 1; j <= 9; j++) {
+			if ( a[i][j]==1 ) {
+				ke[i].push_back(j);				
+			}
+		}
+	}
 }
 
 void BFS(int u) {
@@ -40,12 +53,12 @@ void BFS(int u) {
     }
 }
 
-void way(int s, int t) {
+void way(char a, char b) {
+	int s = a-64;
+	if ( a=='Y' ) s = 9;
+	int t = b-64;
+	if ( t>9 ) t = 9;
     BFS(s);
-    if ( truoc[t]==0 ) {
-        cout << -1 << endl;
-        return;
-    }
     vector<int> ans;
     ans.push_back(t);
     int k = truoc[t];
@@ -55,14 +68,26 @@ void way(int s, int t) {
     }
     ans.push_back(s);
     reverse(all(ans));
-    for ( int i : ans) cout << i << " ";
+    for ( int i = 0; i < ans.size()-1; i++) {
+    	if ( ans[i]==9 ) cout << "Y => ";
+    	else {
+    		char tmp = ans[i]+64;
+    		cout << tmp << " => ";	
+		} 
+	} 
+	if ( ans[ans.size()-1]==9 ) cout << "Y";
+	else {
+		char tmp = ans[ans.size()-1]+64;
+    	cout << tmp;
+	}
     cout << endl;
 }
 
 void Solve() {
-    for ( int i = 0; i <= V; i++) check[i] = true;
-    memset(truoc,0,sizeof(truoc));
-    way(s,t);
+    for ( int i = 1; i <= 9; i++) check[i] = true;
+    for ( int i = 1; i <= 9; i++) truoc[i] = 0;
+    if ( s==t ) cout << s << " => " << t << endl;
+	else way(s,t);
 }
 
 int main()

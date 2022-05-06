@@ -37,7 +37,6 @@ void Solve() {
         }
     }
 }
-
 int main()
 {
     IOS()
